@@ -1,31 +1,29 @@
+// service/BookService.java
 package com.example.demo.service;
 
+import com.example.demo.dao.BookDao;
 import com.example.demo.model.Book;
-import com.example.demo.repository.BookRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class BookService {
-    private final BookRepository repo;
+    private final BookDao dao;
 
-    public BookService(BookRepository repo) {
-        this.repo = repo;
+    public BookService(BookDao dao) {
+        this.dao = dao;
     }
 
     public List<Book> getAllBooks() {
-        return repo.findAll();
+        return dao.findAll();
     }
 
     public Book saveBook(Book book) {
-        System.out.println("Saving: " + book.getTitle());
-        return repo.save(book);
+        return dao.save(book);
     }
 
     public void deleteBook(Long id) {
-        repo.deleteById(id);
+        dao.delete(id);
     }
-
-    // etc.
 }
