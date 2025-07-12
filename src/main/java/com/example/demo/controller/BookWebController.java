@@ -6,6 +6,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+// This is a Spring MVC controller that handles web requests related to books
+// It uses the BookService to interact with the data layer and return views{html}
 @Controller
 public class BookWebController {
 
