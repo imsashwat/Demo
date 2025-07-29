@@ -1,7 +1,7 @@
-package com.example.demo.security;
+package com.example.demo.backened.security;
 
-import com.example.demo.model.User;
-import com.example.demo.repository.UserRepository;
+import com.example.demo.backened.model.User;
+import com.example.demo.backened.repository.UserRepository;
 import org.springframework.security.core.userdetails.*;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;

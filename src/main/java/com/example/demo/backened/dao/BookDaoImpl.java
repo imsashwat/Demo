@@ -1,7 +1,7 @@
 // dao/BookDaoImpl.java
-package com.example.demo.dao;
+package com.example.demo.backened.dao;
 
-import com.example.demo.model.Book;
+import com.example.demo.backened.model.Book;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
@@ -37,5 +37,12 @@ public class BookDaoImpl implements BookDao {
         if (book != null) {
             entityManager.remove(book);
         }
+    }
+
+    @Override
+    public Book findById(Long id) {
+        // TODO Auto-generated method stub
+        
+        return entityManager.find(Book.class, id);
     }
 }

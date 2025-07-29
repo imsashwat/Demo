@@ -1,7 +1,7 @@
-package com.example.demo.controller;
+package com.example.demo.backened.controller;
 
-import com.example.demo.model.Book;
-import com.example.demo.service.BookService;
+import com.example.demo.backened.model.Book;
+import com.example.demo.backened.service.BookService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -10,7 +10,8 @@ import java.util.List;
 // It uses the BookService to interact with the data layer and return JSON responses no views are returned
 // This is a REST controller, so it returns JSON responses instead of views
 @RestController
-@RequestMapping("/books")
+@RequestMapping("/api/books")
+@CrossOrigin(origins = "http://localhost:3000") // allow React calls
 public class BookController {
 
     private final BookService service;
@@ -20,18 +21,12 @@ public class BookController {
     }
 
     @GetMapping
-    public List<Book> getAllBooks() {
+    public List<Book> getBooks() {
         return service.getAllBooks();
     }
 
     @PostMapping
-    public Book createBook(@RequestBody Book book) {
+    public Book saveBook(@RequestBody Book book) {
         return service.saveBook(book);
     }
-
-    @DeleteMapping("/{id}")
-    public void deleteBook(@PathVariable Long id) {
-        service.deleteBook(id);
-    }
 }
-

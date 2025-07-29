@@ -1,4 +1,4 @@
-package com.example.demo.config;
+package com.example.demo.backened.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,7 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
-import com.example.demo.security.MyUserDetailsService;
+import com.example.demo.backened.security.MyUserDetailsService;
 
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -28,19 +28,31 @@ public class SecurityConfig {
     public SecurityConfig(MyUserDetailsService userDetailsService) {
         this.userDetailsService = userDetailsService;
     }
+// @Bean
+// public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+//     http
+//         .csrf(csrf -> csrf.disable()) // <<---- Disable CSRF
+//         .authorizeHttpRequests(auth -> auth
+//             .requestMatchers("/books/**").authenticated()
+//             .requestMatchers("/").permitAll()
+//             .anyRequest().permitAll()
+//         )
+//         .formLogin(Customizer.withDefaults());
+
+//     return http.build();
+// }
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http
-            .authorizeHttpRequests(auth -> auth // You’re specifying which URLs need login:
-                .requestMatchers("/books/**").authenticated() //protects the books endpoints
-                .requestMatchers("/").permitAll() // allows access to the root URL
-                .anyRequest().permitAll() // allows all other requests
-            )
-            .formLogin(Customizer.withDefaults()); // Enables Spring Security's default login form (/login) and handles authentication.
-        
-        return http.build();
-    }
+public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    http
+        .csrf(csrf -> csrf.disable())  // CSRF disabled
+        .authorizeHttpRequests(auth -> auth
+            .anyRequest().permitAll() // All endpoints allowed
+        );
+    return http.build();
+}
+
+
 
     @Bean
     public PasswordEncoder passwordEncoder() {

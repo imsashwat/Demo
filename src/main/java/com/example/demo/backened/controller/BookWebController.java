@@ -1,7 +1,11 @@
-package com.example.demo.controller;
+package com.example.demo.backened.controller;
 
-import com.example.demo.model.Book;
-import com.example.demo.service.BookService;
+import com.example.demo.backened.model.Book;
+import com.example.demo.backened.service.BookService;
+
+import java.util.List;
+
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -38,5 +42,19 @@ public class BookWebController {
     public String saveBook(Book book) {
         service.saveBook(book);
         return "redirect:/books/view";
+    }
+
+    
+    // public ResponseEntity<String> uploadBooks(@RequestBody List<Book> books) {
+    //     for (Book book : books) {
+    //         service.processBook(book);  // 🚀 Each call runs on a separate thread
+    //     }
+    //     return ResponseEntity.ok("Processing started");
+    // }
+
+    @PostMapping("/books/bulk")
+    public ResponseEntity<String> processBulk(@RequestBody List<Book> books) {
+        service.processAllBooks(books);
+        return ResponseEntity.ok("Bulk book processing started asynchronously");
     }
 }
