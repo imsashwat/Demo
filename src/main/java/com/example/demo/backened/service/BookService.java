@@ -3,6 +3,7 @@ package com.example.demo.backened.service;
 
 import com.example.demo.backened.dao.BookDao;
 import com.example.demo.backened.exception.ResourceNotFoundException;
+import com.example.demo.backened.kafka.BookProducer;
 // import com.example.demo.kafka.BookProducer;
 import com.example.demo.backened.model.Book;
 
@@ -17,8 +18,9 @@ import java.util.concurrent.ExecutorService;
 @Service
 public class BookService {
     private final BookDao dao;
-    //@Autowire
-    // private BookProducer producer;
+    
+    @Autowired
+    private BookProducer bookProducer;
    
     private final ExecutorService executorService;
 
@@ -34,7 +36,7 @@ public class BookService {
     public Book saveBook(Book book) {
         
         Book savedBook = dao.save(book);
-        // producer.sendBookCreatedMessage("New book added: " + savedBook.getTitle());
+        bookProducer.sendBookCreatedMessage("New book added: " + savedBook.getTitle());
         return savedBook;
     }
 

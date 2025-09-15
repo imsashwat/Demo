@@ -1,22 +1,20 @@
-// package com.example.demo.kafka;
+package com.example.demo.backened.kafka;
 
+import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.stereotype.Component;
 
-// import org.springframework.kafka.core.KafkaTemplate;
-// import org.springframework.stereotype.Component;
+@Component
+public class BookProducer {
 
-// @Component
-// public class BookProducer {
+    private final KafkaTemplate<String, String> kafkaTemplate;
 
-//     private final KafkaTemplate<String, String> kafkaTemplate;
+    public BookProducer(KafkaTemplate<String, String> kafkaTemplate) {
+        this.kafkaTemplate = kafkaTemplate;
+    }
 
-//     public BookProducer(KafkaTemplate<String, String> kafkaTemplate) {
-//         this.kafkaTemplate = kafkaTemplate;
-//     }
-
-//     public void sendBookCreatedMessage(String message) {
-//         kafkaTemplate.send("book_topic", message);
-//     }
-// }
-
+    public void sendBookCreatedMessage(String message) {
+        kafkaTemplate.send("book_topic", message);
+    }
+}
 
 

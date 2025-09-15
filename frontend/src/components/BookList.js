@@ -10,7 +10,7 @@ const BookList = () => {
   };
 
   useEffect(() => {
-    fetchBooks();
+    fetchBooks(); // Fetch books when the component mounts
   }, []);
 
   return (
@@ -18,13 +18,14 @@ const BookList = () => {
       <h2>Books</h2>
       <table border="1">
         <thead>
-          <tr><th>Title</th><th>Author</th></tr>
+          <tr><th>Title</th><th>Author</th><th>Price</th></tr>
         </thead>
         <tbody>
           {books.map((book, idx) => (
             <tr key={idx}>
               <td>{book.title}</td>
               <td>{book.author}</td>
+              <td>{book.price}</td>
             </tr>
           ))}
         </tbody>
